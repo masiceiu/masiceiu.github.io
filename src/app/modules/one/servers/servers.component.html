@@ -1,0 +1,14 @@
+<div class="server-main-text">
+<h3>Manage your Servers</h3>
+<ul *ngIf="">
+    <li *ngFor="let item of serversName; index as i">
+      {{i+1}} {{item}}
+    </li>
+  </ul>
+    <div *ngFor="let server of serversName; let i=index">
+        <button class="btn btn-outline-danger" (click)="onReload(i)">{{server}}</button>
+    </div>
+</div>
+<div style="margin-top: 130px">
+    <router-outlet></router-outlet>
+</div>

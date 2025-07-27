@@ -1,0 +1,27 @@
+<ng-container *ngIf="loading">
+    <div [class.spinner]="true" *ngIf="1">
+        <div class="w3-display-container w3-green" style="height: 100vh;">
+            <div class="w3-display-middle">
+                <table>
+                    <tr>
+                        <td>Loading</td>
+                        <td><div class="p-2 w3-spin">|</div></td>
+                    </tr>
+                </table>
+            </div>              
+        </div>
+    </div>
+</ng-container>
+<ng-container *ngIf="">
+    <input type="button" value="get A" (click)="getA()"/>
+{{globalData.isOffline}}
+<label for="offline">is offline</label>
+<hr/>
+last data (or error response) retrieved: <br/>
+<pre>{{ returnedData | json}}</pre>
+
+<hr/>
+global data - cache and offline storage: <br/>
+<pre>{{ globalData | json}}</pre>
+</ng-container>
+<router-outlet></router-outlet>

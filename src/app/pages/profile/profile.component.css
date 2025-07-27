@@ -1,0 +1,35 @@
+.change_photo {
+    /* left: 38%;*/
+     bottom: 28px;
+     color: white;
+     font-weight: bold;
+     /*margin-left: -30px;*/
+     /*position: absolute;*/
+     position: relative;
+     text-shadow: 1px 1px #2EBDB6;
+ }
+ /*
+ .profile_photo {
+   color: white;
+   font-weight: bold;
+   margin-left: -55px;
+   margin-top: -28px;
+   position: absolute;
+   text-shadow: 1px 1px #2EBDB6;
+ }*/
+ .img-thumbnail{ 
+   padding: 7px;
+   border-radius: 0px;
+   background-color: #c1c1c1;
+ }
+ 
+ .h3{
+   font-size: 16px;
+   font-weight: bold;
+   text-transform: uppercase;
+ }
+ .edit-profile{
+   margin-top: 10px;
+   position: absolute;
+   right: 10px;
+ }

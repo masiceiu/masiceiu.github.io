@@ -1,0 +1,23 @@
+{
+    "lang": {
+        "id": "bn",
+        "name": "Bengali",
+        "imageUrl": "https://www.countryflags.io/bd/flat/64.png",
+        "suggestion": true
+    },
+    "apiBaseUrl": "http://api.rnd:80/",
+    "apiBaseUrl0": "http://api.rnd:80/",
+    "screen": {
+        "home": {
+            "title": "Home!"
+        },        
+        "admin": {
+            "title": "Panel!"
+        }
+    },
+    "data":{
+        "key":["key",""],
+        "en":["Key"],
+        "bn":["কি"]
+    }
+}

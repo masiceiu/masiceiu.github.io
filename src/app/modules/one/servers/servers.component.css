@@ -1,0 +1,14 @@
+.server-main-text {
+  padding-top: 10px;
+  text-align: center;
+  opacity: 0.6;
+  /*color: white;*/
+}
+.home-main-text h3 {
+  color: black;
+    font-size: 13px;
+}
+.btn {
+  color: #F57F17;
+  border: 1px solid #F57F17;
+}

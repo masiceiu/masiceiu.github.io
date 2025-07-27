@@ -1,26 +1,22 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <title>Ticks to DateTime</title>
-    <link rel="stylesheet" href="./style.css" />
+  <meta charset="utf-8">
+  <title>MyDairy</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1976d2">
 </head>
-
 <body>
-    <div id="containter">
-        <h1>[ Ticks to DateTime ]</h1>
-        <form>
-            <div class="input">
-                <input type="text" placeholder="Ticks" id="ticks" size="17" autofocus="autofocus" />
-            </div>
-        </form>
-        <div class="item">
-            <label id="datetime"></label>
-        </div>
-
+  <app-root></app-root>
+  <noscript>Please enable JavaScript to continue using this application.</noscript>
+  <div style="display: none;" id="pwa-install-prompt" hidden>
+    <div class="prompt-container d-flex  justify-content-center align-items-center">
+      <p>Click here to install the PWA:</p>
+      <button id="pwa-install-button" class="btn btn-primary">Install</button>
     </div>
-    <script src="./index.ts"></script>
+  </div>
 </body>
-
 </html>
