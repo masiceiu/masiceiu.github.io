@@ -1,0 +1,23 @@
+p {
+  font-family: Lato; 
+}
+.navbar {
+ /* margin-top: -40px;
+  color: white;*/
+  opacity: 0.6;
+}
+a {
+  padding-left: 10px;
+  padding-right: 10px;
+  text-decoration: none;
+  /*color: white;*/
+  transition: 0.2s ease-in-out;
+  border-bottom:2px solid transparent;
+}
+a.selected {
+  border-bottom: 2px solid #EF5350;
+}
+.details-view {
+  padding-top: 30px
+}
+
