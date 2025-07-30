@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 //import { HomeComponent } from './home/home.component';
 //import { ServerComponent } from './servers/server/server.component';
 //import { EditServerComponent } from './servers/edit-server/edit-server.component';
-import { AppComponent, NoComponent} from './app.component';
+import { AppComponent, NoPageComponent} from './app.component';
 
 const routes: Routes = [{
   path: "",
@@ -21,7 +21,7 @@ const routes: Routes = [{
     {path: 'user', component: UserComponent},*/
     //{path: '' , redirectTo: '/home' ,pathMatch: 'full'},
   ]},
-{path: '**', component: NoComponent}
+{path: '**', component: NoPageComponent}
 ]
 
 @NgModule({

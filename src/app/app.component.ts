@@ -13,6 +13,6 @@ export class AppComponent  {
   selector: '404',
   template: '404.'
 })
-export class NoComponent  {
+export class NoPageComponent  {
   name = '404:Page';
 }
