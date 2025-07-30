@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppComponent } from './app.component';
+import { AppComponent, NoComponent } from './app.component';
 //import { UserComponent } from './users/user.component';
 //import { ServersComponent } from './servers/servers.component';
 //import { HomeComponent } from './home/home.component';
@@ -15,6 +15,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   imports:      [BrowserModule, CommonModule, FormsModule, AppRoutingModule ],
-  declarations: [ AppComponent/*, UserComponent, ServersComponent, HomeComponent,*/ NoPageComponent/*, ServerComponent, EditServerComponent*/]
+  declarations: [ AppComponent,NoComponent/*, UserComponent, ServersComponent, HomeComponent, ServerComponent, EditServerComponent*/]
 })
 export class AppModule { }
