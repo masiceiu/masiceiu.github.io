@@ -12,6 +12,7 @@ const routes: Routes = [{
   path: "",
   component: OneComponent,
   children:[
+    {path: '', redirectTo: 'home', pathMatch: 'full'},
     {path:'home', component: HomeComponent},
     {path: 'server', 
     component: ServersComponent, 
@@ -20,7 +21,6 @@ const routes: Routes = [{
       {path: ':id/edit', component: EditServerComponent}
     ]},
     {path: 'user', component: UserComponent},
-    //{path: '' , redirectTo: '/home' ,pathMatch: 'full'},
   ]},
 {path: '**', component: NoPageComponent}
 ]
