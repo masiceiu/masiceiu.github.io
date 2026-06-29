@@ -11,10 +11,10 @@ export class HomeComponent {
     constructor(private router: Router) {}
     onNavigate() {
         //this.router.navigate(['/server'])
-        this.router.navigate(['/demo','one','server'])
+        this.router.navigate(['/my','server'])
     }
     onLoadServer(id:number) {
         //this.router.navigate(['/server',id,'edit'], {queryParams: {allowEdit: '1'}, fragment: 'selectedServer'})
-        this.router.navigate(['/demo','one','server',id,'edit'], {queryParams: {allowEdit: '1'}, fragment: 'selectedServer'})
+        this.router.navigate(['/my','server',id,'edit'], {queryParams: {allowEdit: '1'}, fragment: 'selectedServer'})
     }
 }

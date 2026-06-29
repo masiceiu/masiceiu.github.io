@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Title, Meta } from '@angular/platform-browser';
 import { BaseService } from './shared/services/base.service';
-import { environment } from '../environments/environment';
 
 //interface Config { [key: string]: any }
 @Injectable()
@@ -50,10 +49,6 @@ export class AppService extends BaseService {
         .subscribe({ 
           next:(value:any)=>{
             this._config = value;
-            if (!environment.production) {
-              resolve();
-              return;
-            }
             let baseUrl = value.apiBaseUrl          
             const url2 = `${baseUrl}api/files/config`;
             this.http

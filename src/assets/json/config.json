@@ -5,8 +5,8 @@
         "imageUrl": "https://www.countryflags.io/bd/flat/64.png",
         "suggestion": true
     },
-    "apiBaseUrl": "http://api.rnd:80/",
-    "apiBaseUrl0": "http://api.rnd:80/",
+    "apiBaseUrl": "http://api.rnd:8000/",
+    "apiBaseUrl0": "http://api.rnd:8000/",
     "screen": {
         "home": {
             "title": "Home!"
