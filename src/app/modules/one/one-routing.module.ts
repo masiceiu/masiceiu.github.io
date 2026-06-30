@@ -7,6 +7,7 @@ import { NoPageComponent } from './noPage/nopage.component';
 import { ServerComponent } from './servers/server/server.component';
 import { EditServerComponent } from './servers/edit-server/edit-server.component';
 import { OneComponent } from './one.component';
+import { ApiDemoComponent } from './api/api-demo.component';
 
 const routes: Routes = [{
   path: "",
@@ -21,6 +22,7 @@ const routes: Routes = [{
       {path: ':id', component: ServerComponent}
     ]},
     {path: 'user', component: UserComponent},
+    {path: 'api', component: ApiDemoComponent},
   ]},
 {path: '**', component: NoPageComponent}
 ]

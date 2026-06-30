@@ -1,0 +1,54 @@
+<div class="api-page">
+  <div class="api-header">
+    <h3>Backend API Calls</h3>
+    <span [class.busy]="loading">{{ status }}</span>
+  </div>
+
+  <section class="api-panel">
+    <h4>Token</h4>
+    <div class="form-grid">
+      <label>Username <input type="text" [(ngModel)]="tokenRequest.username"></label>
+      <label>Password <input type="password" [(ngModel)]="tokenRequest.password"></label>
+      <label>Grant type <input type="text" [(ngModel)]="tokenRequest.grant_type"></label>
+      <label>Client ID <input type="text" [(ngModel)]="tokenRequest.client_id"></label>
+    </div>
+    <button type="button" class="btn btn-outline-warning" (click)="callToken()" [disabled]="loading">POST /api/token</button>
+  </section>
+
+  <section class="api-panel">
+    <h4>SQL</h4>
+    <div class="inline-form">
+      <label>By <input type="text" [(ngModel)]="sqlBy"></label>
+      <button type="button" class="btn btn-outline-warning" (click)="callSql()" [disabled]="loading">GET /api/sql/{{ sqlBy }}</button>
+    </div>
+    <div class="inline-form">
+      <label>DB <input type="text" [(ngModel)]="sqlDb"></label>
+      <label>Table <input type="text" [(ngModel)]="sqlTable"></label>
+      <button type="button" class="btn btn-outline-warning" (click)="callSqlTable()" [disabled]="loading">GET table</button>
+    </div>
+  </section>
+
+  <section class="api-panel">
+    <h4>JSON</h4>
+    <div class="inline-form">
+      <label>ID <input type="text" [(ngModel)]="jsonId" placeholder="optional"></label>
+      <button type="button" class="btn btn-outline-warning" (click)="callJson()" [disabled]="loading">GET /api/qurn/json</button>
+    </div>
+    <div class="form-grid compact">
+      <label>Lang <input type="text" [(ngModel)]="jsonLang"></label>
+      <label>Type ID <input type="number" [(ngModel)]="jsonTypeId"></label>
+    </div>
+    <textarea [(ngModel)]="jsonRequestText" rows="6"></textarea>
+    <button type="button" class="btn btn-outline-warning" (click)="saveJson()" [disabled]="loading">POST /api/qurn/json</button>
+  </section>
+
+  <section class="api-panel">
+    <h4>20230115</h4>
+    <button type="button" class="btn btn-outline-warning" (click)="callLegacy()" [disabled]="loading">GET /api/20230115</button>
+  </section>
+
+  <section class="api-result" *ngIf="lastEndpoint || lastResponseText">
+    <strong>{{ lastEndpoint }}</strong>
+    <pre>{{ lastResponseText }}</pre>
+  </section>
+</div>

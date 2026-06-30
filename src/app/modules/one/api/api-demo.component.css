@@ -1,0 +1,87 @@
+.api-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 16px 32px;
+}
+
+.api-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.api-header h3,
+.api-panel h4 {
+  margin: 0;
+}
+
+.api-header span {
+  padding: 6px 10px;
+  border: 1px solid #d4b25f;
+  border-radius: 4px;
+  color: #6a5215;
+  background: #fff8df;
+}
+
+.api-header span.busy {
+  color: #0f4f4a;
+  border-color: #5bb8aa;
+  background: #e6fffb;
+}
+
+.api-panel,
+.api-result {
+  margin-top: 14px;
+  padding: 16px;
+  border: 1px solid #dedede;
+  border-radius: 6px;
+  background: #ffffff;
+}
+
+.form-grid,
+.inline-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.form-grid.compact {
+  grid-template-columns: repeat(auto-fit, minmax(120px, 180px));
+}
+
+label {
+  display: grid;
+  gap: 4px;
+  font-size: 14px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #cfcfcf;
+  border-radius: 4px;
+}
+
+textarea {
+  margin-bottom: 12px;
+  font-family: Consolas, monospace;
+  resize: vertical;
+}
+
+button {
+  align-self: end;
+}
+
+pre {
+  max-height: 360px;
+  margin: 10px 0 0;
+  padding: 12px;
+  overflow: auto;
+  color: #f4f7f7;
+  background: #12302d;
+  border-radius: 4px;
+}
