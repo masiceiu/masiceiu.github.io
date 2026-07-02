@@ -12,8 +12,9 @@ import { Router } from "@angular/router";
 
 import { HttpLoading } from './http.loading';
 import { GlobalData } from './shared/models/global-data';
+import { authStorageKey } from './modules/auth/auth-storage';
 
-const loginStorageKey = 'life_whois_login';
+const loginStorageKey = authStorageKey;
 @Injectable()
 export class SiteInterceptor implements HttpInterceptor {
   
@@ -38,7 +39,7 @@ export class SiteInterceptor implements HttpInterceptor {
         if (localStorage.getItem(loginStorageKey) != null) {
           let login = JSON.parse((localStorage.getItem(loginStorageKey)||"{}"));
           const clonedReq = req.clone({
-              headers: req.headers.set('Authorization', 'Bearer ' + login.token)
+                headers: req.headers.set('Authorization', 'Bearer ' + (login.token || login.access_token))
           });
           const handler = next.handle(clonedReq).pipe(
               finalize(()=>
@@ -50,7 +51,7 @@ export class SiteInterceptor implements HttpInterceptor {
               tap({ error: (err:any) =>  {
                 if (err.status == 401){
                     localStorage.removeItem(loginStorageKey);
-                    this.router.navigateByUrl('/user/login');
+                    this.router.navigateByUrl('/auth/login');
                 }
             }})
           );

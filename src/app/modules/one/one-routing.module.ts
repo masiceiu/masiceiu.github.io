@@ -8,10 +8,12 @@ import { ServerComponent } from './servers/server/server.component';
 import { EditServerComponent } from './servers/edit-server/edit-server.component';
 import { OneComponent } from './one.component';
 import { ApiDemoComponent } from './api/api-demo.component';
+import { PermissionGuard } from '../auth/permission.guard';
 
 const routes: Routes = [{
   path: "",
   component: OneComponent,
+  canActivateChild: [PermissionGuard],
   children:[
     {path: '', redirectTo: 'home', pathMatch: 'full'},
     {path:'home', component: HomeComponent},
@@ -22,7 +24,7 @@ const routes: Routes = [{
       {path: ':id', component: ServerComponent}
     ]},
     {path: 'user', component: UserComponent},
-    {path: 'api', component: ApiDemoComponent},
+    {path: 'api', component: ApiDemoComponent, data: { permissions: ['api:demo'] }},
   ]},
 {path: '**', component: NoPageComponent}
 ]

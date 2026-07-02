@@ -5,6 +5,10 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { PageNotFoundComponent } from './pages/page-not-found.component';
 const routes: Routes = [
   {
+    path: 'auth',
+    loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
+  },
+  {
     path: 'my', 
     loadChildren: () =>import("./modules/one/one.module").then(m => m.OneModule),
     //loadChildren: () =>import("./modules/admin/admin.module").then(m => m.AdminModule),

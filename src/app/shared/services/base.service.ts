@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
+import { authStorageKey } from "../../modules/auth/auth-storage";
 
-const loginStorageKey = '8c1a202ba93f2b26_login';
+const loginStorageKey = authStorageKey;
 @Injectable()
 export class BaseService {
   

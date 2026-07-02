@@ -6,6 +6,7 @@
         "suggestion": true
     },
     "apiBaseUrl": "http://api.rnd:8000/",
+    "zikrApiBaseUrl": "http://api.rnd:8000/zikr/public/api/",
     "apiBaseUrl0": "http://api.rnd:8000/",
     "screen": {
         "home": {

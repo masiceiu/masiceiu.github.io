@@ -1,0 +1,9 @@
+<div class="auth-page">
+  <form class="auth-panel" (ngSubmit)="login()">
+    <h3>Login</h3>
+    <label>Email <input type="email" name="email" [(ngModel)]="request.email" required></label>
+    <label>Password <input type="password" name="password" [(ngModel)]="request.password" required></label>
+    <button type="submit" class="btn btn-outline-warning" [disabled]="loading">{{ loading ? 'Signing in...' : 'Sign in' }}</button>
+    <p class="auth-error" *ngIf="error">{{ error }}</p>
+  </form>
+</div>
