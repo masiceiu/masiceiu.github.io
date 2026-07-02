@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, catchError, map, tap, throwError } from 'rxjs';
 
 import { AppService } from '../../app.service';
+import { buildAuthApiUrls } from '../../shared/services/api-endpoints';
 import { authStorageKey, StoredAuthSession } from './auth-storage';
 
 export interface LoginRequest {
@@ -30,14 +31,14 @@ export class AuthService {
   constructor(private http: HttpClient, private appService: AppService) {}
 
   login(request: LoginRequest): Observable<StoredAuthSession> {
-    return this.http.post<LoginResponse>(this.authUrl('login'), request).pipe(
+    return this.postWithFallback<LoginResponse>('login', request).pipe(
       map((response) => this.toSession(request.email, response)),
       tap((session) => this.setSession(session))
     );
   }
 
   me(): Observable<MeResponse> {
-    return this.http.get<MeResponse>(this.authUrl('me'));
+    return this.getWithFallback<MeResponse>('me');
   }
 
   logout(): void {
@@ -111,14 +112,41 @@ export class AuthService {
     return ['zikr:save'];
   }
 
-  private authUrl(route: string): string {
-    const config = this.appService.config || {};
-    const authBaseUrl = config.authApiBaseUrl || config.zikrApiBaseUrl;
+  private getWithFallback<T>(route: string): Observable<T> {
+    const urls = buildAuthApiUrls(this.appService.config || {}, route);
+    return this.tryGet<T>(urls);
+  }
 
-    if (authBaseUrl) {
-      return `${authBaseUrl}${route}`;
-    }
+  private postWithFallback<T>(route: string, request: unknown): Observable<T> {
+    const urls = buildAuthApiUrls(this.appService.config || {}, route);
+    return this.tryPost<T>(urls, request);
+  }
 
-    return `${config.apiBaseUrl || ''}api/${route}`;
+  private tryGet<T>(urls: string[]): Observable<T> {
+    const [url, ...fallbackUrls] = urls;
+
+    return this.http.get<T>(url).pipe(
+      catchError((error: unknown) => {
+        if (fallbackUrls.length === 0) {
+          return throwError(() => error);
+        }
+
+        return this.tryGet<T>(fallbackUrls);
+      })
+    );
+  }
+
+  private tryPost<T>(urls: string[], request: unknown): Observable<T> {
+    const [url, ...fallbackUrls] = urls;
+
+    return this.http.post<T>(url, request).pipe(
+      catchError((error: unknown) => {
+        if (fallbackUrls.length === 0) {
+          return throwError(() => error);
+        }
+
+        return this.tryPost<T>(fallbackUrls, request);
+      })
+    );
   }
 }

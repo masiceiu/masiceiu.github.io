@@ -16,6 +16,10 @@ const routes: Routes = [
       title: "my"
     }
   },
+  {
+    path: 'zikr',
+    loadChildren: () => import('./modules/zikr/zikr.module').then(m => m.ZikrModule)
+  },
   { path: 'profile', component: ProfileComponent},
   { path: '', redirectTo: '/my', pathMatch: 'full'},
   { path: '*', component: PageNotFoundComponent},

@@ -1,0 +1,42 @@
+<div class="zikr-page">
+  <section class="zikr-app">
+    <div class="top-controls">
+      <label class="control">Count:
+        <select [(ngModel)]="countTarget" (ngModelChange)="confirmTargetChange()">
+          <option *ngFor="let target of targets" [ngValue]="target">{{ target }}</option>
+        </select>
+      </label>
+
+      <label class="control">Zikr:
+        <select [(ngModel)]="zikrType">
+          <option *ngFor="let type of zikrTypes" [ngValue]="type">{{ type }}</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="circle-wrapper">
+      <div class="circle" [style.background]="circleBackground">
+        <div class="circle-content">
+          <button type="button" class="circle-btn" (click)="increment()" [disabled]="saving && count >= countTarget">
+            <span class="percent">{{ percent }}%</span>
+            <span class="title">ZIKR</span>
+            <span class="zikr-type">{{ zikrType }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="progress-container" aria-hidden="true">
+      <div class="progress" [style.width.%]="percent"></div>
+    </div>
+
+    <div class="bottom">
+      <button type="button" (click)="increment()">Target</button>
+      <div class="counter"><span class="count">{{ count }}</span> {{ count }}/{{ countTarget }}</div>
+      <button type="button" (click)="resetCounter()">Reset</button>
+    </div>
+
+    <div class="status" [class.busy]="saving">{{ status }}</div>
+    <button type="button" class="logout-btn" (click)="logout()">Logout</button>
+  </section>
+</div>

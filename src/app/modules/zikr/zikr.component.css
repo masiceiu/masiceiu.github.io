@@ -1,0 +1,167 @@
+.zikr-page {
+  min-height: calc(100vh - 60px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 16px;
+  background: #efefef;
+}
+
+.zikr-app {
+  width: min(540px, 100%);
+}
+
+.top-controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 26px;
+}
+
+select {
+  width: 200px;
+  padding: 8px 12px;
+  font-size: 22px;
+  background: white;
+  border: 1px solid #aaa;
+}
+
+.circle-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.circle {
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: 0.3s;
+}
+
+.circle::before {
+  content: '';
+  width: 280px;
+  height: 280px;
+  background: #efefef;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.circle-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.circle-btn {
+  display: grid;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.percent {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.title {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.zikr-type {
+  font-size: 18px;
+}
+
+.progress-container {
+  width: 100%;
+  height: 38px;
+  background: #ddd;
+  border: 1px solid #bbb;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.progress {
+  height: 100%;
+  background: linear-gradient(to right, #7dff85, #00bb00);
+  transition: 0.3s;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+button {
+  padding: 10px 24px;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.counter {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.count {
+  color: #0055ff;
+}
+
+.status {
+  min-height: 24px;
+  margin-top: 16px;
+  text-align: center;
+}
+
+.status.busy {
+  color: #007000;
+}
+
+.logout-btn {
+  width: 100%;
+  margin-top: 20px;
+  background: #cc0000;
+  color: white;
+  border: none;
+}
+
+@media (max-width: 620px) {
+  .top-controls,
+  .bottom {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .control,
+  select {
+    width: 100%;
+  }
+
+  .circle {
+    width: min(320px, 86vw);
+    height: min(320px, 86vw);
+  }
+
+  .circle::before {
+    width: 76%;
+    height: 76%;
+  }
+}
