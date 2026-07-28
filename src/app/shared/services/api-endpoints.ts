@@ -17,8 +17,8 @@ export function buildZikrApiUrls(config: ApiEndpointConfig, route: string): stri
 export function buildAuthApiUrls(config: ApiEndpointConfig, route: string): string[] {
   const urls = [
     fromBase(config.authApiBaseUrl, '', route),
-    ...buildZikrApiUrls(config, route),
-    fromBase(config.apiBaseUrl, 'api/', route)
+    fromBase(config.apiBaseUrl, 'api/', route),
+    ...buildZikrApiUrls(config, route)
   ];
 
   return uniqueUrls(urls);
