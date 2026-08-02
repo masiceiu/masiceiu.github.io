@@ -1,0 +1,77 @@
+<div class="members-page">
+  <div class="members-header">
+    <div>
+      <h3>Members</h3>
+      <p>/zikr/public/api/admin/members</p>
+    </div>
+    <button type="button" class="btn btn-outline-warning" (click)="load()" [disabled]="loading || saving">
+      {{ loading ? 'Loading...' : 'Refresh' }}
+    </button>
+  </div>
+
+  <section class="members-form">
+    <h4>{{ editingMember ? 'Edit Member' : 'Create Member' }}</h4>
+    <div class="form-grid">
+      <label>Email
+        <input type="email" [(ngModel)]="form.email" placeholder="name@example.com">
+      </label>
+      <label>Role
+        <select [(ngModel)]="form.role">
+          <option value="user">user</option>
+          <option value="admin">admin</option>
+        </select>
+      </label>
+      <label>Password
+        <input type="password" [(ngModel)]="form.password" [placeholder]="editingMember ? 'Leave blank to keep current' : 'Required'">
+      </label>
+    </div>
+    <div class="permissions-grid">
+      <label class="permission-option" *ngFor="let permission of availablePermissions">
+        <input type="checkbox" [checked]="hasPermission(permission.id)" (change)="togglePermission(permission.id, $any($event.target).checked)">
+        <span>{{ permission.label }}</span>
+        <small>{{ permission.id }}</small>
+      </label>
+    </div>
+    <div class="form-actions">
+      <button type="button" class="btn btn-outline-warning" (click)="saveMember()" [disabled]="saving || loading">
+        {{ saving ? 'Saving...' : (editingMember ? 'Update' : 'Create') }}
+      </button>
+      <button type="button" class="btn btn-outline-secondary" *ngIf="editingMember" (click)="cancelEdit()" [disabled]="saving">Cancel</button>
+    </div>
+  </section>
+
+  <section class="members-toolbar">
+    <label>Search
+      <input type="search" [(ngModel)]="filterText" placeholder="ID, email, role">
+    </label>
+    <label>Role
+      <select [(ngModel)]="roleFilter">
+        <option value="all">All</option>
+        <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+      </select>
+    </label>
+    <label>Permission
+      <select [(ngModel)]="permissionFilter">
+        <option value="all">All</option>
+        <option *ngFor="let permission of availablePermissions" [value]="permission.id">{{ permission.label }}</option>
+      </select>
+    </label>
+    <div class="members-status">{{ filteredMembers.length }} / {{ members.length }} members · {{ status }}</div>
+  </section>
+
+  <p class="members-error" *ngIf="error">{{ error }}</p>
+
+  <section class="members-list">
+    <article class="member-row" *ngFor="let member of filteredMembers">
+      <div>
+        <strong>{{ member.email }}</strong>
+        <span>#{{ member.id }}</span>
+      </div>
+      <span class="role">{{ member.role }}</span>
+      <span class="permissions">{{ permissionsText(member) }}</span>
+      <button type="button" class="btn btn-outline-secondary" (click)="edit(member)" [disabled]="saving">Edit</button>
+    </article>
+  </section>
+
+  <p class="members-empty" *ngIf="!loading && !error && filteredMembers.length === 0">No matching members found.</p>
+</div>

@@ -1,0 +1,49 @@
+<div class="contacts-page">
+  <div class="contacts-header">
+    <div>
+      <h3>Contacts</h3>
+      <p>GET /api/sql/contacts</p>
+    </div>
+    <button type="button" class="btn btn-outline-warning" (click)="load()" [disabled]="loading">
+      {{ loading ? 'Loading...' : 'Refresh' }}
+    </button>
+  </div>
+
+  <section class="contacts-toolbar">
+    <label>Search
+      <input type="search" [(ngModel)]="filterText" placeholder="Name, number, group, operator">
+    </label>
+    <label>Group
+      <select [(ngModel)]="selectedGroup">
+        <option value="all">All</option>
+        <option *ngFor="let group of groups" [value]="group">{{ group }}</option>
+      </select>
+    </label>
+    <label>Operator
+      <select [(ngModel)]="selectedOperator">
+        <option value="all">All</option>
+        <option *ngFor="let operator of operators" [value]="operator">{{ operator }}</option>
+      </select>
+    </label>
+    <button type="button" class="btn btn-outline-secondary" (click)="clearFilters()" [disabled]="loading">Clear</button>
+    <div class="contacts-count">{{ filteredItems.length }} / {{ items.length }} contacts · {{ status }}</div>
+  </section>
+
+  <p class="contacts-error" *ngIf="error">{{ error }}</p>
+
+  <section class="contacts-list">
+    <article class="contact-row" *ngFor="let item of filteredItems">
+      <div class="contact-main">
+        <h4>{{ item.ContactName || 'Unnamed contact' }}</h4>
+        <a *ngIf="item.ContactNumber" [href]="'tel:' + item.ContactNumber">{{ item.ContactNumber }}</a>
+      </div>
+      <div class="contact-meta">
+        <span>Group {{ item.GroupID || '-' }}</span>
+        <span>Operator {{ item.CellOperatorID || '-' }}</span>
+        <span>Reminder {{ item.RemainderID || '-' }}</span>
+      </div>
+    </article>
+  </section>
+
+  <p class="contacts-empty" *ngIf="!loading && !error && filteredItems.length === 0">No matching contacts found.</p>
+</div>

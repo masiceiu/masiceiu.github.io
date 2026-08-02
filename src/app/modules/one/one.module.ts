@@ -11,10 +11,14 @@ import { NoPageComponent } from './noPage/nopage.component';
 import { ServerComponent } from './servers/server/server.component';
 import { EditServerComponent } from './servers/edit-server/edit-server.component';
 import { ApiDemoComponent } from './api/api-demo.component';
+import { DuaMunajatComponent } from './duamunajat/duamunajat.component';
+import { AyatComponent } from './ayat/ayat.component';
+import { ContactsComponent } from './contacts/contacts.component';
+import { NodesComponent } from './nodes/nodes.component';
 
 
 @NgModule({
   imports:      [CommonModule, FormsModule, OneRoutingModule ],
-  declarations: [ OneComponent, UserComponent, ServersComponent, HomeComponent, NoPageComponent, ServerComponent, EditServerComponent, ApiDemoComponent]
+  declarations: [ OneComponent, UserComponent, ServersComponent, HomeComponent, NoPageComponent, ServerComponent, EditServerComponent, ApiDemoComponent, DuaMunajatComponent, AyatComponent, ContactsComponent, NodesComponent]
 })
 export class OneModule { }

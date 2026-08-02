@@ -1,0 +1,49 @@
+<div class="nodes-page">
+  <div class="nodes-header">
+    <div>
+      <h3>Nodes</h3>
+      <p>GET /api/sql/nodes</p>
+    </div>
+    <button type="button" class="btn btn-outline-warning" (click)="load()" [disabled]="loading">
+      {{ loading ? 'Loading...' : 'Refresh' }}
+    </button>
+  </div>
+
+  <section class="nodes-toolbar">
+    <label>Search
+      <input type="search" [(ngModel)]="filterText" placeholder="ID, key, value, parent">
+    </label>
+    <label>Parent
+      <select [(ngModel)]="selectedParent">
+        <option value="all">All</option>
+        <option *ngFor="let parent of parents" [value]="parent">{{ parent }}</option>
+      </select>
+    </label>
+    <label>Parent index
+      <select [(ngModel)]="selectedParentIndex">
+        <option value="all">All</option>
+        <option *ngFor="let parentIndex of parentIndexes" [value]="parentIndex">{{ parentIndex }}</option>
+      </select>
+    </label>
+    <button type="button" class="btn btn-outline-secondary" (click)="clearFilters()" [disabled]="loading">Clear</button>
+    <div class="nodes-count">{{ filteredItems.length }} / {{ items.length }} nodes · {{ status }}</div>
+  </section>
+
+  <p class="nodes-error" *ngIf="error">{{ error }}</p>
+
+  <section class="nodes-list">
+    <article class="node-row" *ngFor="let item of filteredItems">
+      <div class="node-main">
+        <h4>{{ item.NodeKey || 'Node' }}</h4>
+        <p>{{ item.NodeValue || '-' }}</p>
+      </div>
+      <div class="node-meta">
+        <span>ID {{ item.NodeID || '-' }}</span>
+        <span>Parent {{ item.NodeParent || '-' }}</span>
+        <span>Index {{ item.ParentIndex || '-' }}</span>
+      </div>
+    </article>
+  </section>
+
+  <p class="nodes-empty" *ngIf="!loading && !error && filteredItems.length === 0">No matching nodes found.</p>
+</div>

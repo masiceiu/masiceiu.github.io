@@ -8,6 +8,10 @@ import { ServerComponent } from './servers/server/server.component';
 import { EditServerComponent } from './servers/edit-server/edit-server.component';
 import { OneComponent } from './one.component';
 import { ApiDemoComponent } from './api/api-demo.component';
+import { DuaMunajatComponent } from './duamunajat/duamunajat.component';
+import { AyatComponent } from './ayat/ayat.component';
+import { ContactsComponent } from './contacts/contacts.component';
+import { NodesComponent } from './nodes/nodes.component';
 import { PermissionGuard } from '../auth/permission.guard';
 
 const routes: Routes = [{
@@ -25,6 +29,10 @@ const routes: Routes = [{
     ]},
     {path: 'user', component: UserComponent},
     {path: 'api', component: ApiDemoComponent, data: { permissions: ['api:demo'] }},
+    {path: 'duamunajat', component: DuaMunajatComponent, data: { permissions: ['api:demo'] }},
+    {path: 'ayat', component: AyatComponent, data: { permissions: ['api:demo'] }},
+    {path: 'contacts', component: ContactsComponent, data: { permissions: ['api:demo'] }},
+    {path: 'nodes', component: NodesComponent, data: { permissions: ['api:demo'] }},
   ]},
 {path: '**', component: NoPageComponent}
 ]

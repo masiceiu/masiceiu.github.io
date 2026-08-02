@@ -1,0 +1,42 @@
+<div class="duamunajat-page">
+  <div class="duamunajat-header">
+    <div>
+      <h3>Dua Munajat</h3>
+      <p>GET /api/sql/duamunajat</p>
+    </div>
+    <button type="button" class="btn btn-outline-warning" (click)="load()" [disabled]="loading">
+      {{ loading ? 'Loading...' : 'Refresh' }}
+    </button>
+  </div>
+
+  <section class="duamunajat-toolbar">
+    <label>Search
+      <input type="search" [(ngModel)]="filterText" placeholder="Title, Arabic, translate, reference">
+    </label>
+    <label>Type
+      <select [(ngModel)]="selectedType">
+        <option value="all">All</option>
+        <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+      </select>
+    </label>
+    <div class="duamunajat-count">
+      {{ filteredItems.length }} / {{ items.length }} items
+    </div>
+  </section>
+
+  <p class="duamunajat-error" *ngIf="error">{{ error }}</p>
+
+  <section class="duamunajat-list" *ngIf="!loading || items.length">
+    <article class="duamunajat-item" *ngFor="let item of filteredItems">
+      <div class="item-heading">
+        <h4>{{ item.title || 'Untitled' }}</h4>
+        <span>{{ item.type || 'item' }}</span>
+      </div>
+      <p class="arabic" *ngIf="item.arabic">{{ item.arabic }}</p>
+      <p class="translate" *ngIf="item.translate">{{ item.translate }}</p>
+      <p class="ref" *ngIf="item.ref">{{ item.ref }}</p>
+    </article>
+  </section>
+
+  <p class="duamunajat-empty" *ngIf="!loading && !error && filteredItems.length === 0">No matching items found.</p>
+</div>

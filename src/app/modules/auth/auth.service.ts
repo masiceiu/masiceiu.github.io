@@ -15,6 +15,14 @@ interface LoginResponse {
   access_token: string;
   refresh_token: string;
   role: string;
+  permissions?: string[];
+}
+
+interface RefreshResponse {
+  access_token: string;
+  refresh_token?: string;
+  role?: string;
+  permissions?: string[];
 }
 
 interface MeResponse {
@@ -39,6 +47,26 @@ export class AuthService {
 
   me(): Observable<MeResponse> {
     return this.getWithFallback<MeResponse>('me');
+  }
+
+  refreshAccessToken(): Observable<StoredAuthSession> {
+    const session = this.session;
+    if (!session?.refresh_token) {
+      return throwError(() => new Error('No refresh token available'));
+    }
+
+    return this.postWithFallback<RefreshResponse>('refresh', { refresh_token: session.refresh_token }).pipe(
+      map((response) => ({
+        ...session,
+        token: response.access_token,
+        access_token: response.access_token,
+        refresh_token: response.refresh_token || session.refresh_token,
+        role: response.role || session.role,
+        user_role: response.role || session.user_role,
+        permissions: response.permissions || session.permissions
+      })),
+      tap((updatedSession) => this.setSession(updatedSession))
+    );
   }
 
   logout(): void {
@@ -100,7 +128,7 @@ export class AuthService {
       refresh_token: response.refresh_token,
       role,
       user_role: role,
-      permissions: this.permissionsForRole(role)
+      permissions: response.permissions || this.permissionsForRole(role)
     };
   }
 

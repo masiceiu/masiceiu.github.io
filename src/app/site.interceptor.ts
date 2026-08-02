@@ -6,19 +6,20 @@ import {
   HttpRequest, 
   HttpResponse,
   HttpErrorResponse } from '@angular/common/http';
-import { Observable, of as observableOf, of } from 'rxjs';
-import { finalize, tap } from "rxjs/operators";
+import { Observable, of as observableOf, throwError } from 'rxjs';
+import { catchError, finalize, switchMap } from "rxjs/operators";
 import { Router } from "@angular/router";
 
 import { HttpLoading } from './http.loading';
 import { GlobalData } from './shared/models/global-data';
-import { authStorageKey } from './modules/auth/auth-storage';
+import { AuthService } from './modules/auth/auth.service';
+import { authStorageKey, StoredAuthSession } from './modules/auth/auth-storage';
 
 const loginStorageKey = authStorageKey;
 @Injectable()
 export class SiteInterceptor implements HttpInterceptor {
   
-  constructor(private router: Router, private httpLoading: HttpLoading, protected globalData: GlobalData) {
+  constructor(private router: Router, private httpLoading: HttpLoading, protected globalData: GlobalData, private injector: Injector) {
   //constructor(private router: Router, private httpLoading: HttpLoading, private injector: Injector) {
 
   }
@@ -38,22 +39,15 @@ export class SiteInterceptor implements HttpInterceptor {
       default:
         if (localStorage.getItem(loginStorageKey) != null) {
           let login = JSON.parse((localStorage.getItem(loginStorageKey)||"{}"));
-          const clonedReq = req.clone({
-                headers: req.headers.set('Authorization', 'Bearer ' + (login.token || login.access_token))
-          });
+          const clonedReq = this.withAuthHeader(req, login);
           const handler = next.handle(clonedReq).pipe(
+              catchError((err:any) => this.handleAuthError(err, req, next)),
               finalize(()=>
               {
                 //console.log("finalize1:",req.url);
                 setTimeout(() => {}, 100);
                 this.httpLoading.onFinished(req);
-              }),
-              tap({ error: (err:any) =>  {
-                if (err.status == 401){
-                    localStorage.removeItem(loginStorageKey);
-                    this.router.navigateByUrl('/auth/login');
-                }
-            }})
+              })
           );
           return handler;
       }
@@ -72,5 +66,45 @@ export class SiteInterceptor implements HttpInterceptor {
     }
     // Or if you wanted to go to the network:
     // return next.handle(req);
+  }
+
+  private handleAuthError(err: any, req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (!(err instanceof HttpErrorResponse) || err.status !== 401) {
+      return throwError(() => err);
+    }
+
+    if (this.isAuthRoute(req.url)) {
+      this.logout();
+      return throwError(() => err);
+    }
+
+    const authService = this.injector.get(AuthService);
+    return authService.refreshAccessToken().pipe(
+      switchMap((session) => next.handle(this.withAuthHeader(req, session))),
+      catchError((refreshError: unknown) => {
+        this.logout();
+        return throwError(() => refreshError);
+      })
+    );
+  }
+
+  private withAuthHeader(req: HttpRequest<any>, session: StoredAuthSession): HttpRequest<any> {
+    const token = session.token || session.access_token;
+    if (!token) {
+      return req;
+    }
+
+    return req.clone({
+      headers: req.headers.set('Authorization', 'Bearer ' + token)
+    });
+  }
+
+  private isAuthRoute(url: string): boolean {
+    return /\/api\/(login|refresh)$/.test(url);
+  }
+
+  private logout(): void {
+    localStorage.removeItem(loginStorageKey);
+    this.router.navigateByUrl('/auth/login');
   }
 }

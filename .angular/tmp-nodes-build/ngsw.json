@@ -1,0 +1,128 @@
+{
+  "configVersion": 1,
+  "timestamp": 1785405030165,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/common.js",
+        "/default-node_modules_angular_forms_fesm2020_forms_mjs.js",
+        "/favicon.ico",
+        "/index.html",
+        "/main.js",
+        "/manifest.webmanifest",
+        "/polyfills.js",
+        "/runtime.js",
+        "/scripts.js",
+        "/src_app_modules_auth_auth_module_ts.js",
+        "/src_app_modules_one_one_module_ts.js",
+        "/src_app_modules_zikr_zikr_module_ts.js",
+        "/styles.css",
+        "/vendor.js"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/assets/icons/icon-128x128.png",
+        "/assets/icons/icon-144x144.png",
+        "/assets/icons/icon-152x152.png",
+        "/assets/icons/icon-192x192.png",
+        "/assets/icons/icon-256x256.png",
+        "/assets/icons/icon-384x384.png",
+        "/assets/icons/icon-512x512.png",
+        "/assets/icons/icon-72x72.png",
+        "/assets/icons/icon-96x96.png",
+        "/assets/json/config.json",
+        "/assets/scripts/install-prompt.js",
+        "/bootstrap-icons.woff",
+        "/bootstrap-icons.woff2",
+        "/fontawesome-webfont.svg",
+        "/fontawesome-webfont.ttf",
+        "/fontawesome-webfont.woff",
+        "/fontawesome-webfont.woff2"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "swapi",
+      "patterns": [
+        "https:\\/\\/swapi\\.co\\/.*"
+      ],
+      "strategy": "performance",
+      "maxSize": 100,
+      "maxAge": 259200000,
+      "timeoutMs": 5000,
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "version": 1
+    }
+  ],
+  "hashTable": {
+    "/assets/icons/icon-128x128.png": "b231670f81e34f05a510c781c63352a283bcb546",
+    "/assets/icons/icon-144x144.png": "68232a8fd0292e9fe0ae080624135738891c4e99",
+    "/assets/icons/icon-152x152.png": "344cd83591f0d0eaade8c44ad191e8feef15721a",
+    "/assets/icons/icon-192x192.png": "344cd83591f0d0eaade8c44ad191e8feef15721a",
+    "/assets/icons/icon-256x256.png": "7aa8b3a315dd5665efcf64d38610d601f184111a",
+    "/assets/icons/icon-384x384.png": "902a04fb94918b9490339f80990a40e0179236d7",
+    "/assets/icons/icon-512x512.png": "7a4a21444339a39cae4f56c22889ea3b4577952d",
+    "/assets/icons/icon-72x72.png": "01986d0a14023862f0394f7d1800614da1793a8c",
+    "/assets/icons/icon-96x96.png": "9efd59921d0cbe246177c1179381f156a1b7e896",
+    "/assets/json/config.json": "0a72b5ffa12ba0868e51d162ed75999f3c8ca7a8",
+    "/assets/scripts/install-prompt.js": "b49670589c820e17fa083c449828380fd3767888",
+    "/bootstrap-icons.woff": "75919c717ce5c5bc716bc51705c0cd0b60f4bffc",
+    "/bootstrap-icons.woff2": "17dad0776899ad1beadabd061c34e2a22b2cde74",
+    "/common.js": "c0d941da3a6932aeafd5b709557501d99347ac8d",
+    "/default-node_modules_angular_forms_fesm2020_forms_mjs.js": "af249893b81d15c2c34d03c5452d0e2e15cd66ae",
+    "/favicon.ico": "48c912ba4cb7298cd1071e0cd691a7af9a9ab4ba",
+    "/fontawesome-webfont.svg": "98a8aa5cf7d62c2eff5f07ede8d844b874ef06ed",
+    "/fontawesome-webfont.ttf": "13b1eab65a983c7a73bc7997c479d66943f7c6cb",
+    "/fontawesome-webfont.woff": "28b782240b3e76db824e12c02754a9731a167527",
+    "/fontawesome-webfont.woff2": "d6f48cba7d076fb6f2fd6ba993a75b9dc1ecbf0c",
+    "/index.html": "7200c87ae4404e5dc5658e3870463f02a010c57a",
+    "/main.js": "d9156751d93a27549e51688338f49790944eb636",
+    "/manifest.webmanifest": "501bf4fa29b84309533388a7eda5b2f96e5c8c45",
+    "/polyfills.js": "98ca42f288b580a76833d790ac50952c5d2b8aef",
+    "/runtime.js": "c7e44e26b1aee9cd044606ec2e6cad5c53b8f461",
+    "/scripts.js": "38ba925ba450143ef746e60c64cfef4c8a8c1fbb",
+    "/src_app_modules_auth_auth_module_ts.js": "a40c46262dc855341ff32b5d5fc6e91218756b08",
+    "/src_app_modules_one_one_module_ts.js": "ab8e27df57ce1d37ba3b03b3ee3a6dace8495bdd",
+    "/src_app_modules_zikr_zikr_module_ts.js": "3b8303f2f0dc9a33f4640039c47756a6bf2dbcd4",
+    "/styles.css": "a5a588f2a152c8b83cdd0202212b827c690e135a",
+    "/vendor.js": "50f8c9aec2b60e8761737fdd959ba1b363456434"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}

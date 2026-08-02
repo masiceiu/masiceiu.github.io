@@ -25,6 +25,10 @@
   border-radius: 4px;
 }
 
+.auth-panel button {
+  width: 100%;
+}
+
 .auth-error {
   margin: 0;
   color: #b00020;

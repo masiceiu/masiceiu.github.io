@@ -1,0 +1,47 @@
+<div class="ayat-page">
+  <div class="ayat-header">
+    <div>
+      <h3>Ayat</h3>
+      <p>GET /api/sql/ayat</p>
+    </div>
+    <button type="button" class="btn btn-outline-warning" (click)="load()" [disabled]="loading">
+      {{ loading ? 'Loading...' : 'Refresh' }}
+    </button>
+  </div>
+
+  <section class="ayat-toolbar">
+    <label>Sura
+      <select [(ngModel)]="selectedSura">
+        <option value="all">All</option>
+        <option *ngFor="let sura of suras" [value]="sura">{{ sura }}</option>
+      </select>
+    </label>
+    <label>Sura name
+      <select [(ngModel)]="selectedSuraName">
+        <option value="all">All</option>
+        <option *ngFor="let name of suraNames" [value]="name">{{ name }}</option>
+      </select>
+    </label>
+    <label>Search
+      <input type="search" [(ngModel)]="filterText" placeholder="Ayat, Arabic, translation">
+    </label>
+    <button type="button" class="btn btn-outline-secondary" (click)="clearFilters()" [disabled]="loading">Clear</button>
+    <div class="ayat-count">{{ filteredItems.length }} / {{ items.length }} ayat · {{ status }}</div>
+  </section>
+
+  <p class="ayat-error" *ngIf="error">{{ error }}</p>
+
+  <section class="ayat-list">
+    <article class="ayat-item" *ngFor="let item of filteredItems">
+      <div class="item-heading">
+        <h4>{{ item.sura }}:{{ item.aya }} {{ item.suraname }}</h4>
+        <span>#{{ item.ayat_id }}</span>
+      </div>
+      <p class="arabic" *ngIf="item.Arabic">{{ item.Arabic }}</p>
+      <p class="arabic-alt" *ngIf="item.arabic2">{{ item.arabic2 }}</p>
+      <p class="translation" *ngIf="item.muzibur">{{ item.muzibur }}</p>
+    </article>
+  </section>
+
+  <p class="ayat-empty" *ngIf="!loading && !error && filteredItems.length === 0">No matching ayat found.</p>
+</div>
