@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { AppService } from '../../../app.service';
+import { AuthService } from '../../../modules/auth/auth.service';
 
 export interface TokenLoginRequest {
   username: string;
@@ -54,7 +55,7 @@ export interface NodeItem {
 
 @Injectable({ providedIn: 'root' })
 export class ApiDemoService {
-  constructor(private http: HttpClient, private appService: AppService) {}
+  constructor(private http: HttpClient, private appService: AppService, private authService: AuthService) {}
 
   tokenLogin(request: TokenLoginRequest): Observable<unknown> {
     const body = new HttpParams()
@@ -81,11 +82,11 @@ export class ApiDemoService {
   }
 
   getContacts(): Observable<ContactItem[]> {
-    return this.http.get<ContactItem[]>(this.url('api/sql/contacts'));
+    return this.http.get<ContactItem[]>(this.url('api/sql/friend/ContactInfo'));
   }
 
   getNodes(): Observable<NodeItem[]> {
-    return this.http.get<NodeItem[]>(this.url('api/sql/nodes'));
+    return this.http.get<NodeItem[]>(this.url('api/sql/friend/NodeInfo'));
   }
 
   getSqlTable(db: string, table: string): Observable<unknown> {
@@ -105,8 +106,26 @@ export class ApiDemoService {
     return this.http.get(this.url('api/20230115'));
   }
 
+  refreshToken(): Observable<unknown> {
+    const session = this.authService.session;
+    if (!session?.refresh_token) {
+      throw new Error('No refresh token available');
+    }
+    return this.authService.refreshAccessToken();
+  }
+
+  getZikrMe(): Observable<unknown> {
+    return this.http.get(this.zikrUrl('me'));
+  }
+
   private url(path: string): string {
     const baseUrl = this.appService.config.apiBaseUrl || '';
     return `${baseUrl}${path}`;
+  }
+
+  private zikrUrl(path: string): string {
+    const baseUrl = this.appService.config.apiBaseUrl || '';
+    const zikrPath = this.appService.config.zikrApiPath || 'zikr/public/api/';
+    return `${baseUrl}${zikrPath}${path}`;
   }
 }

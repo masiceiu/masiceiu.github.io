@@ -26,7 +26,7 @@ export class DuaMunajatComponent implements OnInit {
     this.error = '';
 
     this.apiDemoService.getDuaMunajat().subscribe({
-      next: (items) => {
+      next: (items: DuaMunajatItem[]) => {
         this.items = Array.isArray(items) ? items : [];
       },
       error: (error: HttpErrorResponse) => {

@@ -10,6 +10,23 @@
   justify-content: space-between;
   gap: 16px;
   margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.header-controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.session-info {
+  padding: 6px 10px;
+  border: 1px solid #bfae8b;
+  border-radius: 4px;
+  color: #5f5335;
+  background: #f5ede0;
+  font-size: 13px;
 }
 
 .api-header h3,
@@ -76,6 +93,52 @@ button {
   align-self: end;
 }
 
+.button-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 12px 0;
+  align-items: center;
+}
+
+.btn {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #d4b25f;
+  border-radius: 4px;
+  cursor: pointer;
+  background: white;
+  color: #6a5215;
+}
+
+.btn:hover:not(:disabled) {
+  background: #fff8df;
+}
+
+.btn-sm {
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.checkbox-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  margin: 0;
+}
+
+.checkbox-inline input {
+  width: auto;
+  padding: 0;
+  border: 1px solid #cfcfcf;
+}
+
 pre {
   max-height: 360px;
   margin: 10px 0 0;
@@ -84,4 +147,37 @@ pre {
   color: #f4f7f7;
   background: #12302d;
   border-radius: 4px;
+}
+
+.result-content {
+  display: grid;
+  gap: 12px;
+}
+
+.endpoint-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #2c3e50;
+}
+
+.error-box {
+  padding: 10px 12px;
+  border-left: 4px solid #d32f2f;
+  border-radius: 4px;
+  background: #ffebee;
+}
+
+.error-title {
+  color: #c62828;
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.error-message {
+  color: #d32f2f;
+  font-size: 13px;
+  font-family: Consolas, monospace;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }

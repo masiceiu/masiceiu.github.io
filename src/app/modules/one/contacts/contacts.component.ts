@@ -53,7 +53,7 @@ export class ContactsComponent implements OnInit {
     this.status = 'Loading contacts...';
 
     this.apiDemoService.getContacts().subscribe({
-      next: (items) => {
+      next: (items: ContactItem[]) => {
         this.items = Array.isArray(items) ? items : [];
         this.status = 'Loaded';
       },

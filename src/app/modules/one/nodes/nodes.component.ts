@@ -53,7 +53,7 @@ export class NodesComponent implements OnInit {
     this.status = 'Loading nodes...';
 
     this.apiDemoService.getNodes().subscribe({
-      next: (items) => {
+      next: (items: NodeItem[]) => {
         this.items = Array.isArray(items) ? items : [];
         this.status = 'Loaded';
       },

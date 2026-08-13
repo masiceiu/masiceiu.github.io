@@ -54,7 +54,7 @@ export class AyatComponent implements OnInit {
     this.status = 'Loading ayat...';
 
     this.apiDemoService.getAyat().subscribe({
-      next: (items) => {
+      next: (items: AyatItem[]) => {
         this.items = Array.isArray(items) ? items : [];
         this.status = 'Loaded';
       },

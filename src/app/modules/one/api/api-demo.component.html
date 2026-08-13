@@ -1,22 +1,48 @@
 <div class="api-page">
   <div class="api-header">
     <h3>Backend API Calls</h3>
-    <span [class.busy]="loading">{{ status }}</span>
+    <div class="header-controls">
+      <span [class.busy]="loading" class="status">{{ status }}</span>
+      <span class="session-info">{{ sessionStatus }}</span>
+    </div>
   </div>
 
   <section class="api-panel">
-    <h4>Token</h4>
+    <h4>Authentication</h4>
     <div class="form-grid">
       <label>Username <input type="text" [(ngModel)]="tokenRequest.username"></label>
       <label>Password <input type="password" [(ngModel)]="tokenRequest.password"></label>
       <label>Grant type <input type="text" [(ngModel)]="tokenRequest.grant_type"></label>
       <label>Client ID <input type="text" [(ngModel)]="tokenRequest.client_id"></label>
     </div>
-    <button type="button" class="btn btn-outline-warning" (click)="callToken()" [disabled]="loading">POST /api/token</button>
+    <div class="button-group">
+      <button type="button" class="btn btn-outline-warning" (click)="callToken()" [disabled]="loading">POST /api/token</button>
+      <button type="button" class="btn btn-outline-info" (click)="callRefreshToken()" [disabled]="loading">Refresh Token</button>
+      <label class="checkbox-inline">
+        <input type="checkbox" [(ngModel)]="tokenRefreshEnabled"> Auto-refresh on 401
+      </label>
+    </div>
   </section>
 
   <section class="api-panel">
-    <h4>SQL</h4>
+    <h4>Quick SQL Endpoints</h4>
+    <div class="button-group">
+      <button type="button" class="btn btn-sm btn-outline-success" (click)="callDuaMunajat()" [disabled]="loading">Duas</button>
+      <button type="button" class="btn btn-sm btn-outline-success" (click)="callAyat()" [disabled]="loading">Ayat</button>
+      <button type="button" class="btn btn-sm btn-outline-success" (click)="callContacts()" [disabled]="loading">Contacts</button>
+      <button type="button" class="btn btn-sm btn-outline-success" (click)="callNodes()" [disabled]="loading">Nodes</button>
+    </div>
+  </section>
+
+  <section class="api-panel">
+    <h4>Zikr API</h4>
+    <div class="button-group">
+      <button type="button" class="btn btn-sm btn-outline-primary" (click)="callZikrMe()" [disabled]="loading">GET /me</button>
+    </div>
+  </section>
+
+  <section class="api-panel">
+    <h4>SQL Query Builder</h4>
     <div class="inline-form">
       <label>By <input type="text" [(ngModel)]="sqlBy"></label>
       <button type="button" class="btn btn-outline-warning" (click)="callSql()" [disabled]="loading">GET /api/sql/{{ sqlBy }}</button>
@@ -29,7 +55,7 @@
   </section>
 
   <section class="api-panel">
-    <h4>JSON</h4>
+    <h4>JSON Endpoints</h4>
     <div class="inline-form">
       <label>ID <input type="text" [(ngModel)]="jsonId" placeholder="optional"></label>
       <button type="button" class="btn btn-outline-warning" (click)="callJson()" [disabled]="loading">GET /api/qurn/json</button>
@@ -43,12 +69,18 @@
   </section>
 
   <section class="api-panel">
-    <h4>20230115</h4>
+    <h4>Legacy API</h4>
     <button type="button" class="btn btn-outline-warning" (click)="callLegacy()" [disabled]="loading">GET /api/20230115</button>
   </section>
 
   <section class="api-result" *ngIf="lastEndpoint || lastResponseText">
-    <strong>{{ lastEndpoint }}</strong>
-    <pre>{{ lastResponseText }}</pre>
+    <strong class="endpoint-label">{{ lastEndpoint }}</strong>
+    <div class="result-content">
+      <div *ngIf="lastError" class="error-box">
+        <div class="error-title">Error Details</div>
+        <div class="error-message">{{ lastError }}</div>
+      </div>
+      <pre class="response-body">{{ lastResponseText }}</pre>
+    </div>
   </section>
 </div>
