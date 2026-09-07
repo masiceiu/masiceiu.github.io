@@ -13,6 +13,7 @@ import { AyatComponent } from './ayat/ayat.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { NodesComponent } from './nodes/nodes.component';
 import { PermissionGuard } from '../auth/permission.guard';
+import { EditServerGuard } from './servers/edit-server.guard';
 
 const routes: Routes = [{
   path: "",
@@ -24,7 +25,7 @@ const routes: Routes = [{
     {path: 'server', 
     component: ServersComponent, 
     children: [
-      {path: ':id/edit', component: EditServerComponent},
+      {path: ':id/edit', component: EditServerComponent, canActivate: [EditServerGuard]},
       {path: ':id', component: ServerComponent}
     ]},
     {path: 'user', component: UserComponent},

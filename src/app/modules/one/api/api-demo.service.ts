@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 import { AppService } from '../../../app.service';
 import { AuthService } from '../../../modules/auth/auth.service';
@@ -10,6 +10,12 @@ export interface TokenLoginRequest {
   password: string;
   grant_type: string;
   client_id: string;
+}
+
+interface MainApiTokenResponse {
+  access_token?: string;
+  userId?: number | string;
+  userName?: string;
 }
 
 export interface JsonSaveRequest {
@@ -64,9 +70,11 @@ export class ApiDemoService {
       .set('grant_type', request.grant_type)
       .set('client_id', request.client_id);
 
-    return this.http.post(this.url('api/token'), body.toString(), {
+    return this.http.post<MainApiTokenResponse>(this.url('api/token'), body.toString(), {
       headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
-    });
+    }).pipe(
+      tap((response) => this.storeMainApiToken(request.username, response))
+    );
   }
 
   getSql(by: string): Observable<unknown> {
@@ -127,5 +135,23 @@ export class ApiDemoService {
     const baseUrl = this.appService.config.apiBaseUrl || '';
     const zikrPath = this.appService.config.zikrApiPath || 'zikr/public/api/';
     return `${baseUrl}${zikrPath}${path}`;
+  }
+
+  private storeMainApiToken(username: string, response: MainApiTokenResponse): void {
+    if (!response.access_token) {
+      return;
+    }
+
+    const session = this.authService.session || {};
+    this.authService.setSession({
+      ...session,
+      id: Number(response.userId || session.id || 0) || session.id,
+      uid: Number(response.userId || session.uid || 0) || session.uid,
+      name: response.userName || session.name || username,
+      email: session.email || username,
+      token: response.access_token,
+      api_access_token: response.access_token,
+      permissions: session.permissions || ['api:demo']
+    });
   }
 }

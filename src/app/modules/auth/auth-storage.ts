@@ -7,6 +7,8 @@ export interface StoredAuthSession {
   email?: string;
   token?: string;
   access_token?: string;
+  api_access_token?: string;
+  zikr_access_token?: string;
   refresh_token?: string;
   role?: string;
   user_role?: string;

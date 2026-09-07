@@ -37,7 +37,7 @@ export class SiteInterceptor implements HttpInterceptor {
         return observableOf(new HttpResponse({ body: { "items": ["hi there! I'm in your app intercepting your requests"] }, status: 200 }));
         //case"/assets/json/config.json":
       default:
-        if (localStorage.getItem(loginStorageKey) != null) {
+        if (localStorage.getItem(loginStorageKey) != null && !this.isAuthRoute(req.url)) {
           let login = JSON.parse((localStorage.getItem(loginStorageKey)||"{}"));
           const clonedReq = this.withAuthHeader(req, login);
           const handler = next.handle(clonedReq).pipe(
@@ -89,7 +89,7 @@ export class SiteInterceptor implements HttpInterceptor {
   }
 
   private withAuthHeader(req: HttpRequest<any>, session: StoredAuthSession): HttpRequest<any> {
-    const token = session.token || session.access_token;
+    const token = this.tokenForRequest(req.url, session);
     if (!token) {
       return req;
     }
@@ -99,8 +99,20 @@ export class SiteInterceptor implements HttpInterceptor {
     });
   }
 
+  private tokenForRequest(url: string, session: StoredAuthSession): string {
+    if (/\/api\//.test(url) && !/\/zikr\//.test(url)) {
+      return session.api_access_token || '';
+    }
+
+    if (/\/zikr\//.test(url)) {
+      return session.zikr_access_token || session.access_token || session.token || '';
+    }
+
+    return session.token || session.access_token || '';
+  }
+
   private isAuthRoute(url: string): boolean {
-    return /\/api\/(login|refresh)$/.test(url);
+    return /\/api\/(token|login|refresh)$/.test(url);
   }
 
   private logout(): void {

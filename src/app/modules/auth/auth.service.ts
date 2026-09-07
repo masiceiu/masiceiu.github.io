@@ -60,6 +60,7 @@ export class AuthService {
         ...session,
         token: response.access_token,
         access_token: response.access_token,
+        zikr_access_token: response.access_token,
         refresh_token: response.refresh_token || session.refresh_token,
         role: response.role || session.role,
         user_role: response.role || session.user_role,
@@ -88,7 +89,8 @@ export class AuthService {
   }
 
   get isLoggedIn(): boolean {
-    return !!this.session?.token;
+    const session = this.session;
+    return !!(session?.token || session?.access_token || session?.api_access_token || session?.zikr_access_token);
   }
 
   get role(): string {
@@ -125,6 +127,7 @@ export class AuthService {
       name: email,
       token: response.access_token,
       access_token: response.access_token,
+      zikr_access_token: response.access_token,
       refresh_token: response.refresh_token,
       role,
       user_role: role,
