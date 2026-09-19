@@ -23,7 +23,7 @@ VALUES (
   'masiceiu',
   'Masiceiu Angular Frontend',
   'Frontend SPA running on localhost:4200',
-  'http://localhost:4200,http://localhost:4200/',
+  'http://localhost:4200',
   1,
   JSON_OBJECT(
     'environment', 'development',
