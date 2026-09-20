@@ -8,10 +8,26 @@ import { buildZikrApiUrls } from '../../shared/services/api-endpoints';
 export interface SaveZikrRequest {
   date: string;
   count: number;
+  activityId: string;
+  clientId: string;
+  targetCount: number;
+  totalCount: number;
+  completed: boolean;
 }
 
 export interface SaveZikrResponse {
   success?: boolean;
+  error?: string;
+}
+
+export interface ZikrProgress {
+  count?: number;
+  completedTargets?: number;
+  targetCount?: number;
+}
+
+export interface LoadZikrResponse {
+  progress?: ZikrProgress;
   error?: string;
 }
 
@@ -47,6 +63,16 @@ export class ZikrService {
   save(request: SaveZikrRequest): Observable<SaveZikrResponse> {
     const urls = this.urls('save-zikr');
     return this.postWithFallback<SaveZikrResponse>(urls, request);
+  }
+
+  saveProgress(request: Pick<SaveZikrRequest, 'activityId' | 'targetCount' | 'count'>): Observable<SaveZikrResponse> {
+    const urls = this.urls('save-progress');
+    return this.postWithFallback<SaveZikrResponse>(urls, request);
+  }
+
+  load(activityId: string): Observable<LoadZikrResponse> {
+    const urls = this.urls(`load-zikr?activityId=${encodeURIComponent(activityId)}`);
+    return this.getWithFallback<LoadZikrResponse>(urls);
   }
 
   getMembers(): Observable<AdminMembersResponse> {

@@ -2,13 +2,13 @@
   <section class="zikr-app">
     <div class="top-controls">
       <label class="control">Count:
-        <select [(ngModel)]="countTarget" (ngModelChange)="confirmTargetChange()">
+        <select [(ngModel)]="countTarget" (ngModelChange)="confirmTargetChange($event)">
           <option *ngFor="let target of targets" [ngValue]="target">{{ target }}</option>
         </select>
       </label>
 
       <label class="control">Zikr:
-        <select [(ngModel)]="zikrType">
+        <select [(ngModel)]="zikrType" (ngModelChange)="confirmZikrTypeChange()">
           <option *ngFor="let type of zikrTypes" [ngValue]="type">{{ type }}</option>
         </select>
       </label>
@@ -17,7 +17,7 @@
     <div class="circle-wrapper">
       <div class="circle" [style.background]="circleBackground">
         <div class="circle-content">
-          <button type="button" class="circle-btn" (click)="increment()" [disabled]="saving && count >= countTarget">
+          <button type="button" class="circle-btn" (click)="increment()" [disabled]="loading || saving || count >= countTarget">
             <span class="percent">{{ percent }}%</span>
             <span class="title">ZIKR</span>
             <span class="zikr-type">{{ zikrType }}</span>
@@ -31,8 +31,9 @@
     </div>
 
     <div class="bottom">
-      <button type="button" (click)="increment()">Target</button>
+      <button type="button" (click)="completeTarget()" [disabled]="loading || count !== countTarget || saving">Target</button>
       <div class="counter"><span class="count">{{ count }}</span> {{ count }}/{{ countTarget }}</div>
+      <div class="completed-targets">{{ completedTargets }}</div>
       <button type="button" (click)="resetCounter()">Reset</button>
     </div>
 
