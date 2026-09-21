@@ -102,7 +102,7 @@ export class ZikrComponent {
           this.restoreCompletedTargets(previousCompletedTargets, response.error || 'Save failed');
         }
       },
-      error: () => this.restoreCompletedTargets(previousCompletedTargets, 'Save failed'),
+      error: (error) => this.restoreCompletedTargets(previousCompletedTargets, this.apiErrorMessage(error, 'Save failed')),
       complete: () => {
         this.saving = false;
       }
@@ -140,8 +140,8 @@ export class ZikrComponent {
         this.persistLocalProgress();
         this.status = 'Ready';
       },
-      error: () => {
-        this.status = 'Using local progress';
+      error: (error) => {
+        this.status = this.apiErrorMessage(error, 'Using local progress');
       },
       complete: () => {
         this.loading = false;
@@ -161,7 +161,7 @@ export class ZikrComponent {
         targetCount: this.countTarget,
         count: this.count
       }).subscribe({
-        error: () => this.status = 'Progress save failed'
+        error: (error) => this.status = this.apiErrorMessage(error, 'Progress save failed')
       });
     }, 250);
   }
@@ -180,6 +180,14 @@ export class ZikrComponent {
     this.persistLocalProgress();
     this.status = status;
     this.saving = false;
+  }
+
+  private apiErrorMessage(error: any, fallback: string): string {
+    const message = typeof error?.error === 'string'
+      ? error.error
+      : error?.error?.error;
+
+    return message ? `${fallback}: ${message}` : fallback;
   }
 
   private get progressStorageKey(): string {

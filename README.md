@@ -33,3 +33,8 @@ git config --local user.email 'abdus.sobhan@bgc-bd.com'
 git config --local user.name
 git config --local user.email
 git remote -v
+
+# dir
+1. Fontend dir: C:\Users\abdus.sobhan\OneDrive - Bashundhara Group Sector C\RND\Projects\Multimedia\MultimediaApp\ctrl 
+2. Fontend dir: D:\RND\git\masiceiu.github.io\src\app\modules\zikr
+3. Fontend and Backend dir:D:\my\Dropbox\Project\ICTCH(apirnd)\zikr
